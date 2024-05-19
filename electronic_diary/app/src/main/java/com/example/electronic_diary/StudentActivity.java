@@ -36,7 +36,7 @@ public class StudentActivity extends AppCompatActivity {
 
     protected void Marks(View view)
     {
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment1, MarkFragment.class, null).commit();
+        getSupportFragmentManager().beginTransaction().add(R.layout.fragment_mark, MarkFragment.class, null).commit();
         FragmentManager fragmentManager = getSupportFragmentManager();
         MarkFragment fragment1 = new MarkFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

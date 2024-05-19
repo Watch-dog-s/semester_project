@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 String email=login.getText().toString();
 
                 boolean teacher=email.contains("teacher");
-                boolean student=email.contains("study");
+                boolean student=email.contains("student");
 
                 if (student) {
                     launchNextScreenStudent();
