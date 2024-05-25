@@ -2,6 +2,8 @@ package com.example.electronic_diary;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class StudentActivity extends AppCompatActivity {
+
+
+    private Button ButtonAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,8 +40,11 @@ public class StudentActivity extends AppCompatActivity {
 
 
         findViewById(R.id.Back).setOnClickListener(this::onPreviousActivity);
-        findViewById(R.id.buttonadd).setOnClickListener(this::Visits); //тестим
+
+
     }
+
+
 
 
     protected void onPreviousActivity(View view){
@@ -59,4 +67,10 @@ public class StudentActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
+
+
+
+
+
+
 }
