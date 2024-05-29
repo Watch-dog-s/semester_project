@@ -36,10 +36,10 @@ public class StudentActivity extends AppCompatActivity {
 
         findViewById(R.id.buttonMarks).setOnClickListener(this::Marks);
         findViewById(R.id.buttonVisits).setOnClickListener(this::Visits);
-
-
-
         findViewById(R.id.Back).setOnClickListener(this::onPreviousActivity);
+
+
+
 
 
     }
