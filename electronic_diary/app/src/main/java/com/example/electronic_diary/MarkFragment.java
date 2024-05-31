@@ -1,8 +1,10 @@
 package com.example.electronic_diary;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,37 +12,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MarkFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MarkFragment extends Fragment {
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
+public class MarkFragment extends Fragment
+{
+    private LinearLayout LinerMark;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Activity view;
 
     public MarkFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MarkFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MarkFragment newInstance(String param1, String param2) {
         MarkFragment fragment = new MarkFragment();
         Bundle args = new Bundle();
@@ -56,23 +61,38 @@ public class MarkFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mark, container, false);
 
         Button buttonAdd = view.findViewById(R.id.ButtonAdd);
-        LinearLayout liner1 = view.findViewById(R.id.LinerMark);
+        LinerMark = view.findViewById(R.id.LinerMark); // Инициализация LinerMark
 
-        // Set listeners or perform actions with the views here, if necessary
+        buttonAdd.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = AddRecord.newIntent(getContext());
+                startActivity(intent);
+            }
+        });
 
         return view;
+    }
 
+    protected void addRecord()
+    {
+        View recordView = LayoutInflater.from(getContext()).inflate(R.layout.record_item, LinerMark, false);
+        TextView textViewRecord = recordView.findViewById(R.id.TextView_Record);
+        textViewRecord.setText("32");
+
+        int colorMark = ContextCompat.getColor(getContext(), android.R.color.darker_gray);
+        textViewRecord.setBackgroundColor(colorMark);
+        LinerMark.addView(recordView);
     }
 }

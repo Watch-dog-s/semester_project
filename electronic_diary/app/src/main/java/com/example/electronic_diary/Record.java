@@ -13,9 +13,7 @@ public class Record
         this.visit=visit;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() {return id;}
 
     public int getMark() {
         return mark;

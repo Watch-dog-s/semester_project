@@ -45,6 +45,7 @@
 
         <RadioButton
             android:id="@+id/attendance"
+            android:checked="true"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_green_light"
@@ -80,6 +81,7 @@
             android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_purple"
+            android:checked="true"
             android:text="Нет" />
 
         <RadioButton
