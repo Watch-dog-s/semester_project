@@ -1,6 +1,5 @@
 package com.example.electronic_diary;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
-public class AddRecord extends AppCompatActivity
-{
+public class AddRecord extends AppCompatActivity {
     private RadioButton Skip;
     private RadioButton NotSkip;
     private RadioButton Attendance;
@@ -26,11 +25,10 @@ public class AddRecord extends AppCompatActivity
     private RadioButton ThreeMark;
     private RadioButton TwoMark;
 
-    private RecordDatabase database;
+    private AddRecordViewModel viewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_record);
@@ -54,32 +52,24 @@ public class AddRecord extends AppCompatActivity
         ThreeMark = findViewById(R.id.ThreeMark);
         TwoMark = findViewById(R.id.TwoMark);
 
-        ButtonSave.setOnClickListener(new View.OnClickListener()
-        {
+        viewModel = new ViewModelProvider(this).get(AddRecordViewModel.class);
+
+        ButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 saveRecord();
                 onPreviousActivity();
             }
         });
-        database = RecordDatabase.getInstance(getApplication());
-
-
     }
 
-
-    private void saveRecord()
-    {
+    private void saveRecord() {
         int mark = getMark();
         int visit = getVisit();
-        int id=database.RecordDao().getRecords().size();
-        Record record1=new Record(id,mark,visit);
-        // Логика сохранения записи с использованием mark и visit
+        viewModel.saveRecord(mark, visit);
     }
 
-    private int getMark()
-    {
+    private int getMark() {
         int mark = 0;
         if (FiveMark.isChecked()) {
             mark = 5;
@@ -95,8 +85,7 @@ public class AddRecord extends AppCompatActivity
         return mark;
     }
 
-    private int getVisit()
-    {
+    private int getVisit() {
         int visit = -1;
         if (Skip.isChecked()) {
             visit = -1;
@@ -108,13 +97,11 @@ public class AddRecord extends AppCompatActivity
         return visit;
     }
 
-    public static Intent newIntent(Context context)
-    {
+    public static Intent newIntent(Context context) {
         return new Intent(context, AddRecord.class);
     }
 
-    protected void onPreviousActivity()
-    {
+    protected void onPreviousActivity() {
         finish();
     }
 }

@@ -1,10 +1,11 @@
 package com.example.electronic_diary;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MarkFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MarkFragment extends Fragment
-{
+public class MarkFragment extends Fragment {
     private LinearLayout LinerMark;
-    private RecordDatabase database;
+    private AddRecordViewModel viewModel;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -47,45 +49,36 @@ public class MarkFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mark, container, false);
 
         Button buttonAdd = view.findViewById(R.id.ButtonAdd);
         LinerMark = view.findViewById(R.id.LinerMark);
 
-        database = RecordDatabase.getInstance(requireActivity().getApplication());
+        viewModel = new ViewModelProvider(this).get(AddRecordViewModel.class);
 
-        buttonAdd.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = AddRecord.newIntent(getContext());
-                startActivity(intent);
-                showRecords();
-            }
+        buttonAdd.setOnClickListener(v -> {
+            Intent intent = AddRecord.newIntent(getContext());
+            startActivity(intent);
         });
 
-        //showRecords();
+        viewModel.getAllRecords().observe(getViewLifecycleOwner(), new Observer<List<Record>>() {
+            @Override
+            public void onChanged(List<Record> records) {
+                showRecords(records);
+            }
+        });
 
         return view;
     }
 
-
-    protected void addRecord()
-    {
-
-    }
-
-    protected void showRecords()
-    {
-        for (int i = 0; i < database.RecordDao().getRecords().size(); i++)
-        {
+    protected void showRecords(List<Record> records) {
+        LinerMark.removeAllViews();
+        for (Record record : records) {
             View recordView = LayoutInflater.from(getContext()).inflate(R.layout.record_item, LinerMark, false);
             TextView textViewRecord = recordView.findViewById(R.id.TextView_Record);
 
-            String mark= Integer.toString(database.RecordDao().getRecords().get(i).getMark());
+            String mark = Integer.toString(record.getMark());
             textViewRecord.setText(mark);
 
             int colorMark = ContextCompat.getColor(getContext(), android.R.color.darker_gray);
@@ -95,3 +88,4 @@ public class MarkFragment extends Fragment
         }
     }
 }
+
