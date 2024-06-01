@@ -1,5 +1,6 @@
 package com.example.electronic_diary;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ public class AddRecord extends AppCompatActivity
     private RadioButton FiveMark;
     private RadioButton ThreeMark;
     private RadioButton TwoMark;
+
+    private RecordDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,12 +63,18 @@ public class AddRecord extends AppCompatActivity
                 onPreviousActivity();
             }
         });
+        database = RecordDatabase.getInstance(getApplication());
+
+
     }
+
 
     private void saveRecord()
     {
         int mark = getMark();
         int visit = getVisit();
+        int id=database.RecordDao().getRecords().size();
+        Record record1=new Record(id,mark,visit);
         // Логика сохранения записи с использованием mark и visit
     }
 
@@ -104,7 +113,8 @@ public class AddRecord extends AppCompatActivity
         return new Intent(context, AddRecord.class);
     }
 
-    protected void onPreviousActivity(){
+    protected void onPreviousActivity()
+    {
         finish();
     }
 }

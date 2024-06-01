@@ -8,7 +8,7 @@ public class Database
 
     public Database()
     {
-        Record test1=new Record(1,5,1)
+        Record test1=new Record(1,5,1);
         records.add(test1);
 
     }

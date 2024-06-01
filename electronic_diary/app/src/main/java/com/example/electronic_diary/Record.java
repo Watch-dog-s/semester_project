@@ -1,7 +1,13 @@
 package com.example.electronic_diary;
 
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Records")
 public class Record
 {
+    @PrimaryKey
     private int id;
     private int mark;
     private int visit;
