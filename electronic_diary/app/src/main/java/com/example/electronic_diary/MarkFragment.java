@@ -74,18 +74,32 @@ public class MarkFragment extends Fragment {
 
     protected void showRecords(List<Record> records) {
         LinerMark.removeAllViews();
-        for (Record record : records) {
+        for (Record record : records)
+        {
             View recordView = LayoutInflater.from(getContext()).inflate(R.layout.record_item, LinerMark, false);
             TextView textViewRecord = recordView.findViewById(R.id.TextView_Record);
 
-            String mark = Integer.toString(record.getMark());
-            textViewRecord.setText(mark);
+            int mark1 = record.getMark();
+            if (mark1 != 0)
+            {
+                String mark = Integer.toString(mark1);
+                textViewRecord.setText(mark);
 
-            int colorMark = ContextCompat.getColor(getContext(), android.R.color.darker_gray);
-            textViewRecord.setBackgroundColor(colorMark);
+                int colorBlue = ContextCompat.getColor(getContext(), android.R.color.holo_blue_light);
+                int colorGreen = ContextCompat.getColor(getContext(), android.R.color.holo_green_light);
+                int colorOrange = ContextCompat.getColor(getContext(), android.R.color.holo_orange_light);
+                int colorRed = ContextCompat.getColor(getContext(), android.R.color.holo_red_light);
 
-            LinerMark.addView(recordView);
+
+
+                if (mark1==5) {textViewRecord.setBackgroundColor(colorBlue);}
+                if (mark1==4) {textViewRecord.setBackgroundColor(colorGreen);}
+                if (mark1==3) {textViewRecord.setBackgroundColor(colorOrange);}
+                if (mark1==2) {textViewRecord.setBackgroundColor(colorRed);}
+
+
+                LinerMark.addView(recordView);
+            }
         }
     }
 }
-

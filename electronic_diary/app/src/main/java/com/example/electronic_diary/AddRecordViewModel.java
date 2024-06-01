@@ -25,7 +25,7 @@ public class AddRecordViewModel extends AndroidViewModel {
 
     public void saveRecord(int mark, int visit) {
         executorService.execute(() -> {
-            int id = database.RecordDao().getRecordsCount(); // Assuming you have a method to get count
+            int id = database.RecordDao().getRecordsCount() + 1;
             Record record = new Record(id, mark, visit);
             database.RecordDao().insert(record);
         });

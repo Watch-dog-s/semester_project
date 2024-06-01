@@ -16,6 +16,8 @@ public class Record {
         this.visit = visit;
     }
 
+    // Добавьте геттеры и сеттеры для полей, если они отсутствуют
+
     public int getId() {
         return id;
     }
@@ -26,5 +28,17 @@ public class Record {
 
     public int getVisit() {
         return visit;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
+
+    public void setVisit(int visit) {
+        this.visit = visit;
     }
 }
