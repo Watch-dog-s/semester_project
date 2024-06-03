@@ -53,7 +53,7 @@ public class StudentActivity extends AppCompatActivity {
 
     protected void Marks(View view)
     {
-        replaceFragment(new MarkFragment());
+        replaceFragment(new Mark_student_fragment());
     }
 
     protected void Visits(View view)

@@ -46,17 +46,13 @@ public class MainActivity extends AppCompatActivity {
                     launchNextScreenStudent();
                 }
 
-                else if (teacher==true)
+                else if (teacher)
                 {
-                   // Log.i("123","Hello teacher!");
+                    Log.e("teacher","teacher!!!!!!!");
                     launchNextScreenTeacher();
 
                 }
-                else
-                {
 
-
-                }
 
 
 
@@ -68,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchNextScreenStudent()
     {
-        Intent intent = new Intent(this, StudentActivity.class);
-        startActivity(intent);
+        Intent intent1 = new Intent(this, StudentActivity.class);
+        startActivity(intent1);
     }
 
     private void launchNextScreenTeacher()
     {
-        Intent intent = new Intent(this, TeacherActivity.class);
-        startActivity(intent);
+        Intent intent2 = new Intent(this, TeacherActivity.class);
+        startActivity(intent2);
     }
 }
