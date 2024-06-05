@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AddRecordViewModel extends AndroidViewModel {
+
+
+public class AddRecordViewModel extends AndroidViewModel
+{
     private final RecordDatabase database;
     private final ExecutorService executorService;
 
@@ -23,7 +26,8 @@ public class AddRecordViewModel extends AndroidViewModel {
         return database.RecordDao().getRecords();
     }
 
-    public void saveRecord(int mark, int visit) {
+    public void saveRecord(int mark, int visit)
+    {
         executorService.execute(() -> {
             int id = database.RecordDao().getRecordsCount() + 1;
             Record record = new Record(id, mark, visit);

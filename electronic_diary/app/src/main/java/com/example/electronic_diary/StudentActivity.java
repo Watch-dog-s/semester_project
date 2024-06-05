@@ -1,6 +1,7 @@
 package com.example.electronic_diary;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,11 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+
 public class StudentActivity extends AppCompatActivity {
 
 
-    private Button ButtonAdd;
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -42,6 +43,8 @@ public class StudentActivity extends AppCompatActivity {
 
 
 
+
+
     }
 
 
@@ -51,14 +54,32 @@ public class StudentActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void Marks(View view)
-    {
-        replaceFragment(new Mark_student_fragment());
+    protected void Marks(View view) {
+        MarkFragment fragment = new MarkFragment();
+        replaceFragment(fragment);
+
+        getSupportFragmentManager().executePendingTransactions();
+        View fragmentView = fragment.getView();
+        if (fragmentView != null)
+        {
+
+           fragmentView.findViewById(R.id.ButtonAdd).setVisibility(View.INVISIBLE);
+        }
+
     }
 
     protected void Visits(View view)
     {
-        replaceFragment(new VisitFragment());
+        VisitFragment fragment = new VisitFragment();
+        replaceFragment(fragment);
+
+        getSupportFragmentManager().executePendingTransactions();
+        View fragmentView = fragment.getView();
+        if (fragmentView != null)
+        {
+
+            fragmentView.findViewById(R.id.ButtonAdd).setVisibility(View.INVISIBLE);
+        }
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -67,10 +88,5 @@ public class StudentActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
-
-
-
-
-
 
 }

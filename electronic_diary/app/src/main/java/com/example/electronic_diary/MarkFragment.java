@@ -49,7 +49,8 @@ public class MarkFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_mark, container, false);
 
         Button buttonAdd = view.findViewById(R.id.ButtonAdd);
@@ -72,7 +73,8 @@ public class MarkFragment extends Fragment {
         return view;
     }
 
-    protected void showRecords(List<Record> records) {
+    protected void showRecords(List<Record> records)
+    {
         LinerMark.removeAllViews();
         for (Record record : records)
         {

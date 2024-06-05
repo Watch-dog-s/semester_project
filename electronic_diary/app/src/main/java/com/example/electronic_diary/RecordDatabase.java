@@ -13,11 +13,9 @@ public abstract class RecordDatabase extends RoomDatabase {
     public abstract RecordDao RecordDao();
 
     public static synchronized RecordDatabase getInstance(Context context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(),
-                            RecordDatabase.class, "record_database")
-                    .fallbackToDestructiveMigration()
-                    .build();
+        if (instance == null)
+        {
+            instance = Room.databaseBuilder(context.getApplicationContext(), RecordDatabase.class, "record_database").fallbackToDestructiveMigration().build();
         }
         return instance;
     }

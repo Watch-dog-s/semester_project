@@ -66,6 +66,7 @@ public class AddRecord extends AppCompatActivity {
     private void saveRecord() {
         int mark = getMark();
         int visit = getVisit();
+
         viewModel.saveRecord(mark, visit);
     }
 
@@ -96,6 +97,8 @@ public class AddRecord extends AppCompatActivity {
         }
         return visit;
     }
+
+
 
     public static Intent newIntent(Context context) {
         return new Intent(context, AddRecord.class);

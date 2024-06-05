@@ -10,13 +10,20 @@ public class Record {
     private int mark;
     private int visit;
 
-    public Record(int id, int mark, int visit) {
+
+
+
+
+    public Record(int id, int mark, int visit)
+    {
         this.id = id;
         this.mark = mark;
         this.visit = visit;
+
+
     }
 
-    // Добавьте геттеры и сеттеры для полей, если они отсутствуют
+
 
     public int getId() {
         return id;
@@ -29,6 +36,8 @@ public class Record {
     public int getVisit() {
         return visit;
     }
+
+
 
     public void setId(int id) {
         this.id = id;
