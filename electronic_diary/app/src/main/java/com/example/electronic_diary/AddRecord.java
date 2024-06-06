@@ -1,10 +1,10 @@
 package com.example.electronic_diary;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +25,7 @@ public class AddRecord extends AppCompatActivity {
     private RadioButton ThreeMark;
     private RadioButton TwoMark;
 
+    private EditText nameEditText;
     private AddRecordViewModel viewModel;
 
     @Override
@@ -52,6 +53,8 @@ public class AddRecord extends AppCompatActivity {
         ThreeMark = findViewById(R.id.ThreeMark);
         TwoMark = findViewById(R.id.TwoMark);
 
+        // nameEditText = findViewById(R.id.nameEditText); // Инициализация EditText для имени
+
         viewModel = new ViewModelProvider(this).get(AddRecordViewModel.class);
 
         ButtonSave.setOnClickListener(new View.OnClickListener() {
@@ -66,8 +69,9 @@ public class AddRecord extends AppCompatActivity {
     private void saveRecord() {
         int mark = getMark();
         int visit = getVisit();
+        String name = nameEditText.getText().toString();
 
-        viewModel.saveRecord(mark, visit);
+        viewModel.saveRecord(mark, visit, name);
     }
 
     private int getMark() {
@@ -97,8 +101,6 @@ public class AddRecord extends AppCompatActivity {
         }
         return visit;
     }
-
-
 
     public static Intent newIntent(Context context) {
         return new Intent(context, AddRecord.class);

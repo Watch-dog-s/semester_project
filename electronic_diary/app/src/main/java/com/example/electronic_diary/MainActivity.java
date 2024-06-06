@@ -86,7 +86,3 @@ public class MainActivity extends AppCompatActivity {
 }
 
 
-
-//            String originalString = "Hello, world!";
-//            String substringToRemove = "student-";
-//            String resultString = originalString.replace(substringToRemove, "");

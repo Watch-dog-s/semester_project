@@ -9,21 +9,14 @@ public class Record {
     private int id;
     private int mark;
     private int visit;
+    private String name;
 
-
-
-
-
-    public Record(int id, int mark, int visit)
-    {
+    public Record(int id, int mark, int visit, String name) {
         this.id = id;
         this.mark = mark;
         this.visit = visit;
-
-
+        this.name = name;
     }
-
-
 
     public int getId() {
         return id;
@@ -37,7 +30,9 @@ public class Record {
         return visit;
     }
 
-
+    public String getName() {
+        return name;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -49,5 +44,9 @@ public class Record {
 
     public void setVisit(int visit) {
         this.visit = visit;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

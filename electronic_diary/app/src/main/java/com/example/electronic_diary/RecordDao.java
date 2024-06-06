@@ -18,3 +18,4 @@ public interface RecordDao {
     @Insert
     void insert(Record record);
 }
+
