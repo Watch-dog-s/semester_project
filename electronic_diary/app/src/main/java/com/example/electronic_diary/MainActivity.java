@@ -1,6 +1,7 @@
 package com.example.electronic_diary;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import androidx.room.Room;
 public class MainActivity extends AppCompatActivity {
     private AppDatabase db;
     private UserDao userDao;
+    public static String username1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-
+                username1=username;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -74,13 +77,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void launchNextScreenStudent() {
+    private void launchNextScreenStudent()
+    {
         Intent intent1 = new Intent(this, StudentActivity.class);
+
+        String prefix = "student-";
+        String username = username1.substring(prefix.length());
+
+        intent1.putExtra("message",username);
         startActivity(intent1);
     }
 
-    private void launchNextScreenTeacher() {
+    private void launchNextScreenTeacher()
+    {
         Intent intent2 = new Intent(this, TeacherActivity.class);
+        String prefix = "teacher-";
+        String username = username1.substring(prefix.length());
+
+
+        intent2.putExtra("message",username1);
         startActivity(intent2);
     }
 }

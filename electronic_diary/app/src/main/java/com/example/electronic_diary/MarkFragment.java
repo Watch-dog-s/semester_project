@@ -29,6 +29,7 @@ public class MarkFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    public static String user;
 
     public static MarkFragment newInstance(String param1, String param2) {
         MarkFragment fragment = new MarkFragment();
@@ -40,12 +41,12 @@ public class MarkFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        Bundle args = getArguments();
+        if (args != null) {user = args.getString("message");}
+        else {user = user;}
     }
 
     @Override
@@ -63,7 +64,8 @@ public class MarkFragment extends Fragment {
             startActivity(intent);
         });
 
-        viewModel.getAllRecords().observe(getViewLifecycleOwner(), new Observer<List<Record>>() {
+        viewModel.getAllRecords().observe(getViewLifecycleOwner(), new Observer<List<Record>>()
+        {
             @Override
             public void onChanged(List<Record> records) {
                 showRecords(records);
@@ -78,6 +80,8 @@ public class MarkFragment extends Fragment {
         LinerMark.removeAllViews();
         for (Record record : records)
         {
+            if (user.contains(record.getName()))
+            {
             View recordView = LayoutInflater.from(getContext()).inflate(R.layout.record_item, LinerMark, false);
             TextView textViewRecord = recordView.findViewById(R.id.TextView_Record);
 
@@ -102,6 +106,7 @@ public class MarkFragment extends Fragment {
 
                 LinerMark.addView(recordView);
             }
+        }
         }
     }
 }

@@ -1,11 +1,16 @@
 package com.example.electronic_diary;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +18,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class AddRecord extends AppCompatActivity {
     private RadioButton Skip;
@@ -25,11 +35,15 @@ public class AddRecord extends AppCompatActivity {
     private RadioButton ThreeMark;
     private RadioButton TwoMark;
 
-    private EditText nameEditText;
+
     private AddRecordViewModel viewModel;
+    private Spinner userSpinner;
+    private String user;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_record);
@@ -53,23 +67,33 @@ public class AddRecord extends AppCompatActivity {
         ThreeMark = findViewById(R.id.ThreeMark);
         TwoMark = findViewById(R.id.TwoMark);
 
-        // nameEditText = findViewById(R.id.nameEditText); // Инициализация EditText для имени
+
+        user="student-petrov";
 
         viewModel = new ViewModelProvider(this).get(AddRecordViewModel.class);
 
-        ButtonSave.setOnClickListener(new View.OnClickListener() {
+        ButtonSave.setOnClickListener(new View.OnClickListener()
+        {
+
+
             @Override
-            public void onClick(View v) {
-                saveRecord();
+            public void onClick(View v)
+            {
+                saveRecord(user);
                 onPreviousActivity();
             }
         });
+
+
+
+        userSpinner = findViewById(R.id.spinner1);
+        loadUsernames();
     }
 
-    private void saveRecord() {
+    private void saveRecord(String name) {
         int mark = getMark();
         int visit = getVisit();
-        String name = nameEditText.getText().toString();
+
 
         viewModel.saveRecord(mark, visit, name);
     }
@@ -108,5 +132,43 @@ public class AddRecord extends AppCompatActivity {
 
     protected void onPreviousActivity() {
         finish();
+    }
+
+
+
+
+    private void loadUsernames() {
+        AsyncTask.execute(() -> {
+            AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
+            List<String> usernames = db.userDao().getAllUsernamesWithStudent();
+
+            // Удаление повторяющихся имён
+            Set<String> uniqueUsernames = new HashSet<>(usernames);
+
+            runOnUiThread(() -> populateSpinner(uniqueUsernames));
+        });
+    }
+
+    private void populateSpinner(Set<String> usernames) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(usernames));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userSpinner.setAdapter(adapter);
+
+        userSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String selectedUsername = (String) parent.getItemAtPosition(position);
+                user=selectedUsername;
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

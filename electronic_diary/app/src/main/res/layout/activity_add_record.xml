@@ -7,15 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".AddRecord">
 
-    <TextView
-        android:id="@+id/textView1"
+    <Spinner
+        android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="332dp"
+
+        >
+
+    </Spinner>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="336dp"
         android:text="Оценка"
         android:textSize="19dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="49dp" />
+        tools:layout_editor_absoluteX="44dp" />
 
     <RadioGroup
         android:layout_width="match_parent"

@@ -5,6 +5,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM users WHERE username = :username AND password = :password")
@@ -12,6 +14,10 @@ public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user);
+
+    @Query("SELECT username FROM users WHERE username LIKE '%student%'")
+    List<String> getAllUsernamesWithStudent();
+
 }
 
 

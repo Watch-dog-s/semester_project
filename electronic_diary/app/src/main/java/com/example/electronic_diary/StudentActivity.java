@@ -16,9 +16,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-public class StudentActivity extends AppCompatActivity {
+public class StudentActivity extends AppCompatActivity
+{
 
 
+    public static String user;
   
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,9 +42,8 @@ public class StudentActivity extends AppCompatActivity {
         findViewById(R.id.Back).setOnClickListener(this::onPreviousActivity);
 
 
-
-
-
+         user=getIntent().getStringExtra("message");
+         Log.i("studentActivity",user);
 
 
     }
@@ -54,39 +55,32 @@ public class StudentActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void Marks(View view) {
-        MarkFragment fragment = new MarkFragment();
-        replaceFragment(fragment);
-
-        getSupportFragmentManager().executePendingTransactions();
-        View fragmentView = fragment.getView();
-        if (fragmentView != null)
-        {
-
-           fragmentView.findViewById(R.id.ButtonAdd).setVisibility(View.INVISIBLE);
-        }
-
-    }
-
-    protected void Visits(View view)
+    protected void Marks(View view)
     {
-        VisitFragment fragment = new VisitFragment();
-        replaceFragment(fragment);
-
-        getSupportFragmentManager().executePendingTransactions();
-        View fragmentView = fragment.getView();
-        if (fragmentView != null)
-        {
-
-            fragmentView.findViewById(R.id.ButtonAdd).setVisibility(View.INVISIBLE);
-        }
+        replaceFragment(new MarkFragment());
     }
 
-    private void replaceFragment(Fragment fragment) {
+    protected void Visits(View view) {
+        replaceFragment(new VisitFragment());
+    }
+
+    private void replaceFragment(Fragment fragment)
+    {
+
+        Bundle args = new Bundle();
+        args.putString("message", user);
+        fragment.setArguments(args);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
+
+        getSupportFragmentManager().executePendingTransactions();
+        View fragmentView = fragment.getView();if (fragmentView != null)
+    {   fragmentView.findViewById(R.id.ButtonAdd).setVisibility(View.INVISIBLE);
     }
+    }
+
 
 }

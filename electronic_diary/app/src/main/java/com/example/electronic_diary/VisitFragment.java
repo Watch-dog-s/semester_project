@@ -24,6 +24,7 @@ import java.util.List;
  */
 public class VisitFragment extends Fragment
 {
+    public static String user;
 
     private LinearLayout LinerMark;
     private AddRecordViewModel viewModel;
@@ -63,10 +64,9 @@ public class VisitFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        Bundle args = getArguments();
+        if (args != null) {user = args.getString("message");}
+        else {user = user;}
     }
 
     @Override
@@ -99,29 +99,37 @@ public class VisitFragment extends Fragment
     protected void showRecords(List<Record> records)
     {
         LinerMark.removeAllViews();
-        for (Record record : records)
-        {
-            View recordView = LayoutInflater.from(getContext()).inflate(R.layout.record_item, LinerMark, false);
-            TextView textViewRecord = recordView.findViewById(R.id.TextView_Record);
+        for (Record record : records) {
+            if (user.contains(record.getName())) {
+                View recordView = LayoutInflater.from(getContext()).inflate(R.layout.record_item, LinerMark, false);
+                TextView textViewRecord = recordView.findViewById(R.id.TextView_Record);
 
-            int visit = record.getVisit();
-
-
+                int visit = record.getVisit();
 
 
                 int colorBlue = ContextCompat.getColor(getContext(), android.R.color.holo_blue_light);
-                int colorGreen = ContextCompat.getColor(getContext(), android.R.color.holo_green_light);;
+                int colorGreen = ContextCompat.getColor(getContext(), android.R.color.holo_green_light);
+                ;
                 int colorRed = ContextCompat.getColor(getContext(), android.R.color.holo_red_light);
 
 
-
-                if (visit==1) {textViewRecord.setBackgroundColor(colorBlue);textViewRecord.setText("П");}
-                if (visit==0) {textViewRecord.setBackgroundColor(colorGreen);textViewRecord.setText("У");}
-                if (visit==-1) {textViewRecord.setBackgroundColor(colorRed);textViewRecord.setText("Н");}
+                if (visit == 1) {
+                    textViewRecord.setBackgroundColor(colorBlue);
+                    textViewRecord.setText("П");
+                }
+                if (visit == 0) {
+                    textViewRecord.setBackgroundColor(colorGreen);
+                    textViewRecord.setText("У");
+                }
+                if (visit == -1) {
+                    textViewRecord.setBackgroundColor(colorRed);
+                    textViewRecord.setText("Н");
+                }
 
 
                 LinerMark.addView(recordView);
 
+            }
         }
     }
 }
