@@ -81,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent1 = new Intent(this, StudentActivity.class);
 
-        String prefix = "student-";
-        String username = username1.substring(prefix.length());
 
-        intent1.putExtra("message",username);
+
+        intent1.putExtra("message",username1);
         startActivity(intent1);
+
+      //  Log.i("toStudent",username);
     }
 
     private void launchNextScreenTeacher()

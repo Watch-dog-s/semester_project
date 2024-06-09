@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +47,9 @@ public class MarkFragment extends Fragment {
     {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        if (args != null) {user = args.getString("message");}
-        else {user = user;}
+        if (args != null) {user = args.getString("message");
+            Log.i("transport data",user);}
+        else {user = "petrov";}
     }
 
     @Override
@@ -78,6 +81,7 @@ public class MarkFragment extends Fragment {
     protected void showRecords(List<Record> records)
     {
         LinerMark.removeAllViews();
+
         for (Record record : records)
         {
             if (user.contains(record.getName()))
